@@ -57,28 +57,18 @@ struct Wrapper
 };
 
 template<>
-struct Wrapper<Point>
+void Wrapper<Point>::print()
 {
-    Wrapper(Point&& p) : point(std::move(p)) 
-    { 
-        std::cout << "Wrapper(" << typeid(point).name() << ")" << std::endl; 
-    }
-
-    void print()
-    {
-        std::cout << point.toString() << std::endl;
-    }
-
-private:
-    Point point;
-};
+    std::cout << "Wrapper::print(" << val.toString() << ")" << std::endl;
+}
 
 
-// Base Case For Recursion
-template<typename T>
-void variadicHelper(T&& a)
+
+void variadicHelper()
 {
-    Wrapper<T>(std::forward<T>(a)).print();
+    /*
+        Empty ..?
+    */
 }
 
 template<typename T, typename ...Args>
