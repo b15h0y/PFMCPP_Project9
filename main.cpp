@@ -10,7 +10,7 @@ Purpose:  This project will teach you about variadic templates and recursive tem
 1) read Instructions.cpp
 
 Make the following program work, which makes use of Variadic templates and Recursion
- */
+*/
 
 #include <iostream>
 #include <string>
@@ -42,11 +42,41 @@ private:
 template<typename Type>
 struct Wrapper
 {
+    void print()
+    {
+        std::cout << this->val << std::endl;
+    }
+
     Wrapper(Type&& t) : val(std::move(t)) 
     { 
         std::cout << "Wrapper(" << typeid(val).name() << ")" << std::endl; 
     }
+
+    private:
+        Type val;
 };
+
+template<>
+void Wrapper<Point>::print()
+{
+    std::cout << "Wrapper::print(" << val.toString() << ")" << std::endl;
+}
+
+
+void variadicHelper();
+
+template<typename T, typename ...Args>
+void variadicHelper(T&& a, Args&& ... everythingElse)
+{
+    Wrapper<T>(std::forward<T>(a)).print();
+    variadicHelper( std::forward<Args>(everythingElse)... ); // Recursion
+}
+
+void variadicHelper()
+{
+    
+}
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
