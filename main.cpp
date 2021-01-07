@@ -63,13 +63,7 @@ void Wrapper<Point>::print()
 }
 
 
-
-void variadicHelper()
-{
-    /*
-        Empty ..?
-    */
-}
+void variadicHelper();
 
 template<typename T, typename ...Args>
 void variadicHelper(T&& a, Args&& ... everythingElse)
@@ -78,6 +72,10 @@ void variadicHelper(T&& a, Args&& ... everythingElse)
     variadicHelper( std::forward<Args>(everythingElse)... ); // Recursion
 }
 
+void variadicHelper()
+{
+    
+}
 
 
 /*
